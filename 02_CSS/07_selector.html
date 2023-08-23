@@ -84,7 +84,13 @@
   <style>
 
     /* 자식 선택자 : 부모 > 자식 */
-    ul > li 
+    ul > li {
+      color: orange;
+    }
+
+    ul > li > a {
+      color: crimson;
+    }
 
 
 
@@ -92,14 +98,106 @@
   <div>
     <ul>
       <li>구글 <a href="https://www.google.com/">
-           <i class="fa-brands fa-google" style="color: #ff0026;"></i>
+           <i class="fa-brands fa-google" ></i>
         </a>
       </li>
     </ul>
   </div>
 
+  <hr>
+  <style>
 
+  /* 후손 선택자 : 조상 후손 */
+
+    ol label {
+      color: orange;
+    }
+
+  </style>
+
+  <div>
+    <ol>
+      <li>
+        <input type="radio" name="wakeup" id="six" >
+        <label for="six">6시</label>
+      </li>
+      <li>
+        <input type="radio" name="wakeup" id="seven" >
+        <label for="seven">7시</label>
+      </li>
+      <li>
+        <input type="radio" name="wakeup" id="eight" >
+        <label for="eight">8시</label>
+      </li>
+    </ol>
+  </div>
+
+  <hr>
+
+  <style>
+   
+   /* 모든 형제 선택자 : 형제 ~ 형제 */
+    .asia > h4 ~ P {
+      color: rgb(187, 187, 187);
+    }
+
+  </style>
+
+  <div class="asia">
+    <p>한국</p>
+    <h4>아시아</h4>
+    <p>한국</p>
+    <p>일본</p>
+    <p>중국</p>
+  </div>
+
+  <hr>
+
+  <style>
+
+    /* 
+    인접 형제 선택자 : 형제 + 형제      +는 바로 뒤에 있는 것을 말한다. 
+    */
+    .hobby > h4 + input + label{
+      color: #c2c3c4;
+    }
+
+</style>
+
+  <div class="hobby">
+    <h4>취미</h4>
+    <input type="checkbox" id="fitness">
+    <label for="fitness">헬스</label>
+    <input type="checkbox" id="travel">
+    <label for="travel">여행</label>
+    <input type="checkbox" id="cook">
+    <label for="cook">요리</label>
+
+  </div>
+
+  <hr>
+
+  <style>
+    /* 
+     구조 선택자 
+     1. 요소:first-of-type : 첫 번째 요소 
+     2. 요소:last-of-type  : 마지막 요소 
+     3. 요소:nth-of-type(n) :n번째 요소 
+    */
+  .dinner > ol >   
+
+  </style>
+
+  <div class="dinner">
+    <h4>오늘 저녁 메뉴는 무엇입니까?</h4>
+    <ol>
+      <li>김치찌개</li>
+      <li>순두부찌개</li>
+      <li>된장찌개</li>
+      <li>부대찌개  </li>
+    </ol>
+  </div>
 
 
 </body>
-</html>
+</html> 
