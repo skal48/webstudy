@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <script>
+
+    /*
+      DOM
+      1. Document Object Model(문서 객체 모델)
+      2. HTML 구성 요소 (HTMLCollection, Node)를 객체(Object)저장하고 처리할 수 있는 방식이다. 
+      3. HTML 구성 요소 (HTMLElement) 알아내기
+        1) id 속성으로 알아내기 
+          var 변수 = document.getElementById('아이디')
+        2) class 속성으로 알아내기 
+          var 배열 = document.getElementsByClassName('클래스')
+        3) tag 이름으로 알아내기
+          var 배열 = document.getElementsByTagName('태그')  
+        4) 선택자로 알아내기 
+          var 변수 = document.querySelector('선택자')
+        5) 선택자로 알아내기 
+          var 배열 = document.querySelctorAll('선택자')   
+      4. 반드시 html 구성 요소(HTMLCollection/HTMLElement, NodeList/Node)를 먼저 만들어야 한다. <script> 태그는 나중에 만든다 .
+
+    */
+  </script>
+
+  <script> // 스크립트를 html 보다 먼저 작성하면 안된다. null이 나온다. 
+
+    var box1 = document.getElementById('box1');
+    console.log(box1);
+  </script>   
+
+  <div class="wrqp">  
+    <div id="box1" class="primary_box">box1</div>
+    <div id="box2" class="primary_box">box2</div>
+    <div id="box3" class="primary_box">box2</div>
+  </div>
+  <script>
+    // id 속성
+    var box1 = document.getElementById('box1');
+    console.log(box1);  
+    var box2 = document.getElementById('box2');
+    console.log(box1);  
+    var box3 = document.getElementById('box3');
+    console.log(box1);  
+
+    // class 속성
+    var primary_box = document.getElementsByClassName('primary_box');
+    console.log(primary_box);
+
+    // tag 이름
+    var div = document.getElementsByTagName('div');
+    console.log(div);
+
+    // 선택자를 이용해 id="box" 알아내기
+    var box1 = document.querySelector('#box1');
+    console.log(box1);
+
+    //선택자를 이용해 class="primary_box" 알아내기
+    var primary_box = document.querySelectorAll('.primary_box')
+    console.log(primary_box);
+
+  </script>
+
+  <!-- 태그 내부 텍스트 -->
+  <p id = "p1">Hello World</p>
+
+  <script>
+    var p1 = document.getElementById('p1');
+    console.log(p1.textContent);
+
+    p1.textContent = '안녕하세요';
+    p1.textContent += ' 반갑습니다.';
+  </script>
+
+  <!-- 태그 내부 요소-->
+  <p id="p2"><strong>Hello World</strong></p>
+  <script>
+    var p2 = document.getElementById('p2');
+    console.log(p2.innerHTML);
+    p2.innerHTML ='<em>안녕하세요<em>';
+    p2.innerHTML += '<mark>반갑습니다.</mark>';  
+  </script>
+
+  <!-- 태그 속성 -->
+  <p id="p3">
+    <img src="../../assets/images/flower1.jpg" width="384px"> 
+  </p>
+  <script>
+    /*
+      태그 속성 
+      1. attribute
+      2. 태그에 명시된 속성을 말한다. 
+      3. 태그 속성 메소드 
+        1) 속성값 알아내기 : getAttribute('속성')
+        2) 속성값 변경하기 : setAttribute('속성', '값')
+        3) 속성값 삭제하기 : removeAttibute('속성')
+    */
+   var img = document.querySelector('#p3 > img');
+   console.log(img.getAttribute('src'));
+   console.log(img.getAttribute('width'));
+    img.setAttribute('src','../../assets/images/flower2.jpg');
+    img.setAttribute('width','192px');
+    img.removeAttribute('src');
+    img.removeAttribute('width');
+
+  </script>
+
+
+  <!-- 연습1. 봄, 여름, 가을, 겨울 목록 만들기  -->
+  <ul id = season>    
+  </ul>
+  <script>
+    var str = '<li>봄</li><li>여름</li><li>가을</li><li>겨울</li>'; 
+    document.getElementById('season').innerHTML = str;
+   
+  </script>
+ <!--  구글 네이버 다음 로고 클릭하면 해당 페이지로 이동하기  -->
+ <!-- 연습2. 이미지 +링크 만들기  -->
+ <!-- 1. <a> 태그와 <img>태그 넣기 
+      2. <a> 태그에 href 속성, <img> 태그에 src, width 속성 넣기 -->
+  <ul id="site">
+
+  </ul>
+  <script>
+    var site = document.getElementById('site');
+    site.innerHTML += '<li><a href="https://www.google.com/"><img src="../../assets/image/google.png" width="192px"></a></li>';
+    site.innerHTML += '<li><a href="https://www.naver.com/"><img src="../../assets/image/naver.png" width="192px"></a></li>';
+    site.innerHTML += '<li><a href="https://www.daum.net/"><img src="../../assets/image/daum.png" width="192px"></a></li>';
+  </script>
+
+
+</body>
+</html>
