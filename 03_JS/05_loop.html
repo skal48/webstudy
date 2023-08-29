@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <div id="box1"></div>
+  <script>
+    var str = '';
+    for(let i = 1; i <= 5; i++){
+      str += (i + '<br>');
+    }
+
+    document.getElementById('box1').innerHTML = str; /*<br>이 HTML의 요소 이기 때문에 innerHTML을 쓴다. */
+
+  </script> 
+  <hr>
+  <style>
+    #box2 > img {
+      margin-right: 10px;
+    }
+  </style>
+  <div id="box2"></div>
+  <script>
+    var image = '';
+    for(let i = 1;i <= 10; i++){
+      image += '<img src ="../../assets/images/animal'+ i + '.jpg" width="120px">';
+    }
+    document.getElementById('box2').innerHTML = image;
+  </script>
+  <hr>
+
+  <div id = "box3"></div> 
+  <script>
+    
+    var str = '<select name="month"><option value="">월 선택</option>';
+    for(let n = 1; n <= 12; n++){
+      str += '<option value="' + n + '"> '+ n + '월</option>';
+    }
+    str += '</select>'
+    document.getElementById('box3').innerHTML = str;  
+    </script>
+  <hr>
+    <style>
+      .box4 {
+        border-collapse: collapse;
+      }
+    </style>
+
+
+  <div id="box4"></div>
+  <script>
+    var str = '<table border="1"><tbody>';
+      for(let n = 1; n <=3; n++){
+        str += '<tr>';
+        for(let m = 1; m <= 3; m++){
+          str += '<td>' + (3*(n-1) + m) +'</td>';
+        }
+        str += '</tr>';
+      }
+      str += '</tbody></table>'
+    document.getElementById('box4').innerHTML = str;  
+
+
+  </script>
+
+
+
+</body>
+</html>
