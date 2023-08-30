@@ -80,7 +80,7 @@
 
     /*
       생성자 함수 
-      1. 갹체를 만드는 함수이다. 
+      1. 객체를 만드는 함수이다. 
       2. new 키워드를 이용해서 객체를 만들 수 있다. 
       3. 관례상 첫 글자를 대문자로 작성한다.
       4. 생성자 함수 형식
@@ -129,30 +129,34 @@
     // 미희  010-3333-3333  mihee@gmail.com
 
     // 1. 생성자 함수를 정의 해서 3개의 객체를 생성하시오.
-     var people = function(name, phone, email){
-      this.name = name,
-      this.phone = phone,
+     // 1. 생성자 함수를 정의해서 3개의 객체를 생성하시오.
+     var Person = function(name, mobile, email){
+      this.name = name;
+      this.mobile = mobile;
       this.email = email;
-     }  
-
-    // 2. 생성된 3개의 객체를 배열에 저장하시오 
-     var peoples = [ 
-      new people('숙희','010-1111-1111', 'sookhee@gmail.com'),
-      new people('정희', '010-2222-2222', 'junghee@gmail.com'),
-      new people('미희', '010-3333-3333', 'mihee@gmail.com')
-     ];
-
-    // 3. 배열에 저장된 값을 테이블 형식으로 출력하시오 
-    var box = document.getElementById('box');
-    box.innerHTML += '<table border="1"><thead><tr><td>이름</td><td>연락처</td><td>이메일</td></tr></thead><tbody>' ;
-    for(let i =0; i < peoples.length;i++){
-      box.innerHTML += '<tr>';
-      for(let p in peoples){
-        box.innerHTML += '<td>' + peoples[i][p] + '</td>';
-       }
-     box.innerHTML += '</tr>';
     }
-    box.innerHTML += '</tbody></table>';
+
+    // 2. 생성된 3개의 객체를 배열에 저장하시오.
+    var people = [
+      new Person('숙희', '010-1111-1111', 'sookhee@gmail.com'),
+      new Person('정희', '010-2222-2222', 'junghee@gmail.com'),
+      new Person('미희', '010-3333-3333', 'mihee@gmail.com')
+    ];
+
+    // 3. 배열에 저장된 값을 테이블 형식으로 출력하시오.
+    var str = '<table border="1">';
+    str += '<thead><tr><td>성명</td><td>연락처</td><td>이메일</td></tr></thead>';
+    str += '<tbody>';
+    for(let i = 0; i < people.length; i++){      // 배열 순회
+      str += '<tr>';
+      for(let p in people[i]){  // 객체 순회
+        str += '<td>' + people[i][p] + '</td>';
+      }
+      str += '</tr>';
+    }
+    str += '</tbody></table>';
+    document.getElementById('box').innerHTML = str;
+
   </script>
 
 </body>
