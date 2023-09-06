@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <script src="../../assets/js/lib/jquery-3.7.1.min.js"></script>
+  <!-- <script src="../../assets/js/lib/jquery-3.7.1.min.js"></script> -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -42,8 +42,12 @@
         3) off()
           (1) 등록된 이벤트를 제거한다. 
           (2) 형식
-            이벤트 대상.off('이벤트타입')             
-        4) 이벤트타입이 곧 이벤트 메소드
+            이벤트 대상.off('이벤트타입')       
+        4) trigger()
+          (1) 이벤트를 강제로 발생시킨다.
+          (2) 형식
+            이벤트 대상.trigger('이벤트 타입')          
+        5) 이벤트타입이 곧 이벤트 메소드
           (1) 클릭이벤트 : 이벤트 대상.click(이벤트 리스너)
           (2) 변경이벤트 : 이벤트 대상.change(이벤트 리스너)
           (3) 키 이벤트  : 이벤트 대상.keyup(이벤트리스너)     
@@ -101,6 +105,31 @@
   </script>
   <hr>
 
+  <!-- 강제 이벤트 발생 -->
+  <div>
+    <button id="btn1">버튼1</button>
+    <button id="btn2">버튼2</button>
+  </div>
+
+  <script>
+    //jQuery 객체 생성
+    var btn1 = $('#btn1');
+    var btn2 = $('#btn2');
+
+    //btn1의 click 이벤트
+    btn1.click(function(){
+      alert($(this).text() + '클릭했다.');
+    })
+
+    //btn2 의 click 이벤트(btn2를 클릭하면 btn1 을 클릭하시오)
+    btn2.click(function(){
+      btn1.trigger('click');
+    })
+
+
+
+  </script>
+
   <div class="post" data-post="1">
     <h1 class="title">제목1</h1>
     <div class="content">내용1</div>
@@ -138,7 +167,6 @@
       console.log(target);
 
     </script>
-  <hr>
 
   <div class="post">
     <h1 class="title">제목1</h1>
@@ -152,7 +180,7 @@
   </div>
   <script>
     var target = $('.btn_remove3').prev();
-    console.log(target);
+    consol.log(target);
   </script>
   <hr>
 
@@ -189,6 +217,103 @@
     console.log(target);
   </script>
 
+<hr>
+
+    <!-- 데이타 속성 alert 창에 띄우기 -->
+  <h1>문제 시작</h1>
+
+
+  <div class="post" data-post="1">
+    <h1 class="title">제목1</h1>
+    <div class="content">내용1</div>
+    <input type="button" value="삭제" class="btn_remove1">
+  </div>
+  <div class="post" data-post="2">
+    <h1 class="title">제목2</h1>
+    <div class="content">내용2</div>
+    <input type="button" value="삭제" class="btn_remove1">
+  </div>
+  <script>
+    var target = $('.btn_remove1').parent();
+    var btn_remove1 = $('.btn_remove1');
+    btn_remove1.click(function(){
+      alert($(this).parent().data('post'));
+    })
+
+    var target = $('.btn_remove1').closest('div');
+    btn_remove1.click(function(){
+      alert($(this).closest('div').data('post'));
+    })
+
+  </script>
+  <hr>
+
+  <div class="post">
+    <h1 class="title" data-post="1">제목1</h1>
+    <div class="content">내용1</div>
+    <input type="button" value="삭제" class="btn_remove2">
+  </div>
+  <div class="post">
+    <h1 class="title" data-post="2">제목2</h1>
+    <div class="content">내용2</div>
+    <input type="button" value="삭제" class="btn_remove2">
+  </div>
+    <script>
+      var target = $('.btn_remove2').prev('div');
+      console.log(target);
+      var target = $('.btn_remove2').prev('title');
+      console.log(target);
+
+    </script>
+
+  <div class="post">
+    <h1 class="title">제목1</h1>
+    <div class="content" data-post="1">내용1</div>
+    <input type="button" value="삭제" class="btn_remove3">
+  </div>
+  <div class="post">
+    <h1 class="title">제목2</h1>
+    <div class="content" data-post="2">내용2</div>
+    <input type="button" value="삭제" class="btn_remove3">
+  </div>
+  <script>
+    var target = $('.btn_remove3').prev();
+    ;
+  </script>
+  <hr>
+
+  <div class="post">
+    <h1 class="title">제목1</h1>
+    <div class="content">내용1</div>
+    <input type="button" value="삭제" class="btn_remove4" data-post="1">
+  </div>
+  <div class="post">
+    <h1 class="title">제목2</h1>
+    <div class="content">내용2</div>
+    <input type="button" value="삭제" class="btn_remove4" data-post="2">
+  </div>
+  <script>
+    var target = $('.btn_remove4');
+    console.log(target);
+  </script>
+  <hr>
+
+  <div class="post">
+    <h1 class="title">제목1</h1>
+    <div class="content">내용1</div>
+    <input type="button" value="삭제" class="btn_remove5">
+    <input type="hidden" value="1">
+  </div>
+  <div class="post">
+    <h1 class="title">제목2</h1>
+    <div class="content">내용2</div>
+    <input type="button" value="삭제" class="btn_remove5">
+    <input type="hidden" value="2">
+  </div>
+  <script>
+    var target = $('.btn_remove5').next();
+    console.log(target);
+  </script>
 
 
 </body>

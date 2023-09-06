@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <div id="box1"></div>
+  <script>
+    
+    //배열 생성 및 초기화
+    var fourSeason = ['spring','summer','autumn','winter'];
+
+    //배열 요소 순회 each() 메소드 
+    $.each(fourSeason,function(i){  //배열 인덱스
+      console.log(i);
+    })
+    $.each(fourSeason,function(i, elem){  // i : 배열 인덱스, elem : 배열요소 
+      console.log(i, elem);
+    })
+
+    /*
+      1. spring
+      2. summer
+      3. autumn
+      4. winter
+    */
+    var ol = $('<ol>');
+    $.each(fourSeason,function(i, elem){
+      ol.append($('<li>').text(elem));
+    })
+    ol.appendTo($('#box1'));   //$('#box1').append(ol) 와 같다 
+
+    
+  </script>
+
+<div id="box2"></div>
+<script>
+
+  // 배열 생성 및 초기화
+  var people = [
+    {
+      'name': 'alice',
+      'age': 30,
+      'mobile': '010-0000-0000'
+    },
+    {
+      'name': 'james',
+      'age': 40,
+      'mobile': '010-1111-1111'
+    }
+  ]
+
+  // 테이블 만들기
+  var table = $('<table><tbody>');
+  $.each(people,function(i,elem){
+    $.each(elem,function(j,elem2){
+      table.append($('<tr>'))
+      table.append($('<td>').text(j));
+      table.append($('<td>').text(elem2));
+      
+    })
+  })  
+  table.appendTo($('#box2'));
+
+
+</script>
+
+
+<hr>
+
+
+<div id="box3"></div>
+<script>
+
+  // 배열 생성 및 초기화
+  var site = [
+    {
+      'host': '네이버',
+      'url': 'https://www.naver.com/',
+      'target': '_blank'
+    },
+    {
+      'host': '구글',
+      'url': 'https://www.google.com/',
+      'target': '_self'
+    }
+  ]
+
+  /*
+    <ul>
+      <li><a href="https://www.naver.com/" target="_blank">네이버</a></li>
+      <li><a href="https://www.google.com/" target="_self">구글</a></li>
+    </ul>
+  */
+  var ul = $('<ul>');
+  $.each(site,function(i, elem){   
+      ul.append($('<li><a href="' + elem.url + '" target="'+ elem.target +'">')).text(elem.host)
+   
+  })  
+  ul.appendTo(('#box3'))
+
+
+
+
+
+
+
+</script>
+
+<div id="box4">
+  <ul>
+    <li class="movies">터미네이터</li>
+    <li class="movies">아바타</li>
+    <li class="movies">에일리언</li>
+    <li class="movies">스타워즈</li>
+    <li class="movies">로보캅</li>
+  </ul>
+</div>
+<script>
+
+  // class="movies"인 요소를 var movies 배열로 만들기
+  
+  // 비어 있는 배열 생성
+  var movies = [];
+
+  // class="movies" 요소를 순회하면서 내부 텍스트를 꺼내고, 배열에 저장하기
+  $.each($('.movies'), function(i, elem){
+    movies.push($(elem).text());
+  })
+  
+  // 확인
+  console.log(movies);
+
+</script>
+
+
+<hr>
+
+
+<div id="box5">
+  <select id="region">
+    <option value="02">서울</option>
+    <option value="031">경기</option>
+    <option value="032">인천</option>
+  </select>
+</div>
+<script>
+
+  // id가 region인 요소를 배열로 만들기
+  /*
+  var region = [
+    {
+      'name': '서울',
+      'tel': '02'
+    },
+    ...
+  ]
+  */
+
+  // 비어 있는 배열 생성
+  var region = [];
+
+  // id="region" 요소를 순회하면서 내부 텍스트와 value 속성을 꺼내고, 배열에 저장하기
+  $.each($('#region > option'), function(i, elem){
+
+    // 비어 있는 객체 obj 생성
+    var obj = {};
+
+    // 객체 obj에 속성(프로퍼티) 저장
+    obj.name = $(elem).text();
+    obj.tel= $(elem).val();
+
+    // 객체 obj를 배열에 저장하기
+    region.push(obj);
+
+  })
+
+  // 확인
+  console.log(region);
+
+</script>
+
+
+  
+</body>
+</html>

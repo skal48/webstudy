@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../../assets/js/lib/jquery-3.7.1.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body>
+  <!-- 태그 속성 -->
+  <p id="p3">
+    <img src="../../assets/images/flower1.jpg" width="384px"> 
+  </p>
+  <script>
+    /* JavaScript의 Attribute 다루기 == jQuery의 Attribute다루기
+      
+      요소.getAttribute('속성')           요소.attr('속성')
+      요소.setAttribute('속성', '값')     요소.attr('속성','값')
+      요소.removeAttibute('속성')         요소.removeAttr('속성')
+    */
+  var img = $('#p3 > img');
+  console.log(img.attr('src'));
+  console.log(img.attr('width'));
+    img.attr('src','../../assets/images/flower2.jpg');
+    img.attr('width','192px');
+    img.removeAttr('src');
+    img.removeAttr('width');
+
+  </script>
+
+  <!-- 객체 속성 -->
+  <p id="p4">
+    <input type="radio" name="gender" value="M" id="male" class="blind" checked="checked">
+    <label for="male" >남자</label>
+    <input type="radio" name="gender" value="F" id="female" class="blind" >
+    <label for="female" >여자</label>
+  </p>
+  <script>
+    /*
+      JavaScript의 property 다루기 == jQuery의 property 다루기
+      요소.프로퍼티                   요소.prop('프로퍼티')
+      요소['프로퍼티']                요소.prop('프로퍼티')
+      요소.프로퍼티 = 값              요소.prop('프로퍼티', '값')
+      요소['프로퍼티'] = 값           요소.prop('프로퍼티', '값')
+      delete 요소.프로퍼티            요소.removeProp('프로퍼티') : built-in property 삭제 금지 
+      delete 요소['프로퍼티']         요소.removeProp('프로퍼티') : built-in property 삭제 금지 
+    */      
+    var radio = $('#p4 >:radio:checked');
+    console.log(radio.prop('type'));  // radio
+    console.log(radio.prop('name'));  // male
+    console.log(radio.prop('id'));    // gender
+    console.log(radio.prop('class')); // blind            class 속성을 다루는 메소드는 별도로 존재함 (addClass(), removeClass(), toggleClass())
+    console.log(radio.prop('value'))    //  M             value 속성을 다루는 메소드는 별도로 존재함 val()
+    console.log(radio.prop('data-gender'))    //undefied  data- 속성을 다루는 메소드는 별도로 존재함 data()
+    console.log(radio.prop('checked')); // true           동일한 결과 : radio.is(':checked')
+
+    radio.prop('id', 'man')
+    radio.next().prop('for','man');  //동일한 결과 : radio.next().attr('for','man')
+    radio.prop('checked',false);
+  </script>
+  <hr>
+  <!-- value 속성 -->
+  <p id="p3">
+    <input type="text" placeholder="입력상자">
+    <br>
+    <select>
+        <option value="1">1</option>
+        <option value="2" selected>2</option>
+        <option value="3">3</option>
+    </select>
+    <br>
+    <textarea></textarea>
+  </p>
+  <script>
+     /*
+                       | JavaScript         | jQuery
+      -----------------|--------------------|--------------------
+      value 가져오기   | 요소.value         | 요소.val()
+      value 설정하기   | 요소.value = 값    | 요소.val(값)
+    */
+
+    // value 가져오기
+    console.log($('#p > select').val());
+
+    // value 설정하기
+    $('#p3 >:text').val('Hello World');
+    $('#p3 > select').val(3);
+    $('#p3 >textarea').val('안녕하세요. 반갑습니다.');
+
+
+  </script>
+
+
+  <hr>
+
+
+  <!-- data- 속성 -->
+  <p id="p4">
+    <span id="first"></span>부터 <span id="last"></span>까지
+  </p>
+  <script>
+    /*
+                           | JavaScript                  | jQuery
+      -------------------  |-----------------------------|--------------------
+      data-item 가져오기   | 요소.dataset.item           | 요소.data('item')
+      data-item 설정하기   | 요소.dataset.item = 값      | 요소.data('item', 값)
+      data-myName 가져오기 | 요소.dataset.myName         | 요소.data('myName')
+                           |                             | 요소.data('my-name')         
+      data-myName 설정하기 | 요소.dataset.myName = 값    | 요소.data('myName', 값)
+                           |                             |  요소.data('my-name',값)
+      data-my-age 가져오기 | 요소.dataset.my-age         | 요소.data('my-age')
+                           |                             | 요소.data('myAge')
+      data-my-age 설정하기 | 요소.dataset.my-age = 값    | 요소.data('my-age', 값)
+                           |                             | 요소.data('myAge', 값)
+    */  
+    // data-속성 설정하기
+    $('#p4').data('range',{'first':1, 'last':10}); //data-range="{'first': 1, 'last': 10}"
+
+    //data-속성 가져오기
+    var range = $('#p4').data('range');
+
+    //data-속성 설정하기
+    $('#first').data('first', range.first).text(range.first);
+    $('#last').data('last', range.last).text(range.last);   //first 나 last는 사용자가 아무이름이나 붙여서 사용가능함
+
+    // data-속성 가져오기
+    var first = $('#first').data('first');
+    var last = $('#last').data('last');
+    console.log(first,last);
+
+    // 모든 data-속성 가져오기 
+    console.log($('#first').data());  // {'first':1}
+    console.log($('#last').data());  // {'last':10}
+    
+  </script>
+
+  <hr>
+  <!-- attribute로 작성한 data-속성에서는 camel case를 사용하지 말자 -->
+  <p id="p5" data-role="admin" data-member-no="1" data-memberName="홍길동">홍기동</p> <!--attr로 명시하면 카멜케이스가 적용이 안된다.-->
+  <script>
+
+    /*
+                           | JavaScript                  | jQuery
+      -------------------  |-----------------------------|--------------------
+      data-item 가져오기   | 요소.dataset.item           | 요소.data('item')
+      data-item 설정하기   | 요소.dataset.item = 값      | 요소.data('item', 값)
+      data-myName 가져오기 | 요소.dataset.myname         | 요소.data('myname')
+      data-myName 설정하기 | 요소.dataset.myname = 값    | 요소.data('myname', 값)
+      data-my-age 가져오기 | 요소.dataset.mAge           | 요소.data('myAge')
+                           |                             | 요소.data('myAge')
+      data-my-age 설정하기 | 요소.dataset.myAge = 값     | 요소.data('myAge', 값)
+                           |                             | 요소.data('myAge', 값)
+    */  
+    // jQuery 객체 생성
+    var p5 = $('#p5');
+
+    // data-속성 가져오기
+    console.log(p5.data('role'));     // admin
+    console.log(p5.data('member-no')); //1     p5.data('memberNo')도 가능함 
+    console.log(p5.data('memberName')); //안나온다. p5.data('membername') 하면 나온다.
+
+  </script>
+
+<hr>
+
+
+<style>
+  #p6::before {
+    content: attr(data-ho);
+    margin-right: 0.5em;
+  }
+</style>
+<p id="p6" data-ho="추사">김정희</p>
+
+
+</body>
+</html>
