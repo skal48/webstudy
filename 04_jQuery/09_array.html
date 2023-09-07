@@ -54,24 +54,31 @@
     }
   ]
 
-  // 테이블 만들기
-  var table = $('<table><tbody>');
-  $.each(people,function(i,elem){
-    $.each(elem,function(j,elem2){
-      table.append($('<tr>'))
-      table.append($('<td>').text(j));
-      table.append($('<td>').text(elem2));
-      
+  // <table> 태그를 jQuery 객체로 만들기
+    var table = $('<table>').attr('border', 1);
+    
+    // <thead> 태그는 문자열로 전달해서 저장
+    table.append('<thead><tr><td>이름</td><td>나이</td><td>연락처</td></tr></thead>');
+
+    // <tbody> 태그 만들기
+    var tbody = $('<tbody>');
+    $.each(people, function(i, elem){
+      var tr = $('<tr>');
+      tr.append($('<td>').text(elem.name));
+      tr.append($('<td>').text(elem.age));
+      tr.append($('<td>').text(elem.mobile));
+      tbody.append(tr);
     })
-  })  
-  table.appendTo($('#box2'));
 
+    // <table>에 <tbody> 태그 넣기
+    table.append(tbody);
 
-</script>
+    // box2에 <table> 넣기
+    $('#box2').append(table);
 
+  </script>
 
 <hr>
-
 
 <div id="box3"></div>
 <script>
@@ -96,19 +103,18 @@
       <li><a href="https://www.google.com/" target="_self">구글</a></li>
     </ul>
   */
-  var ul = $('<ul>');
-  $.each(site,function(i, elem){   
-      ul.append($('<li><a href="' + elem.url + '" target="'+ elem.target +'">')).text(elem.host)
-   
-  })  
-  ul.appendTo(('#box3'))
+  // <ul> 태그를 jQuery 객체로 만들기
+    var ul = $('<ul>');
+    
+    // site 배열 순회하면서 <li><a> 태그 만들어 넣기
+    $.each(site, function(i, elem){
+      var li = $('<li>');
+      li.append($('<a>').attr('href', elem.url).attr('target', elem.target).text(elem.host));
+      ul.append(li);
+    })
 
-
-
-
-
-
-
+    // 완성된 <ul> 태그를 box3에 넣기
+    $('#box3').append(ul);
 </script>
 
 <div id="box4">
@@ -178,13 +184,10 @@
     region.push(obj);
 
   })
-
+  
   // 확인
   console.log(region);
 
 </script>
-
-
-  
 </body>
 </html>

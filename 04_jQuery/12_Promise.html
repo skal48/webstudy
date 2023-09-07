@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body>
+  <script>
+
+    /// 비동기 통신은 요청 이후에 응답을 기다리지 않는다. 
+
+    var a; // a는 undefined
+    $.ajax({
+      type: 'get',
+      url: 'product1.xml',
+      async: true,
+      dataType: 'xml',
+      success: function(resData){
+        a =$(resData).find('product').length;
+      }
+    })
+    console.log(a); //a 는 3을 기대하지만, ajax 응답이 올 때까지 기다리지 않고 이 코드가 처리된다. 
+
+  </script>  
+  <script>
+    /*
+      Promise 객체
+      1. 비동기 처리의 결과(성공 또는 실패) 값을 나타낼수 있는 객체이다. 
+        (비동기 처리를 할 때 응답이 올 때 까지 기다리는 JavaScript 객체이다. )
+      2. Promise 상태
+        1) 대기 상태 : pending, 이행도 하지 않고 거부도 하지 않는 초기 상태
+        2) 이행 상태 : fulfilled, 비동기 처리가 성공적으로 완료된 상태
+        3) 거부 상태 : reject, 비동기 처리사 실패된 상태 
+      3. Promise 메소드
+        1) Promise.resolve() : 이행상태에서 호출하는 메소드이다. resolve()메소드가 반환하는 프로미스는 then() 메소드를 따라가서 처리된다. 
+        2) Promise.reject()  : 거부상태에서 호출하는 메소드이다. reject() 메소드가 반환하는 프로미스는 catch() 메소드를 따라가서 처리된다.   
+    */
+
+    //Promise 객체 생성
+    var promise = new Promise(function(resolve, reject){
+
+      // 랜덤으로 이행상태(성공)와 거부상태(실패)를 생성
+      if(Math.random() < 0.5){
+        resolve('이행'); // resolve() 메소드를 호출하면 then() 메소드에서 정의한 함수가 실행된다.
+      } else {
+        reject('거부'); //reject()메소드를 호출하면 catch() 메소드에서 정의한 함수가 실행된다.
+      }
+    });
+
+    //Promise가 이행상태인 경우
+    promise.then(function(str){
+      console.log(str + '이행');
+    })
+    
+    //promise가 거부상태인 경우 
+    promise.catch(function(str){
+      console.log(str + '거부');
+
+    })
+    
+  </script>
+  <script>
+
+    var promise = new Promise(function(resolve, reject){});
+    promise.then(function(){});
+    promise.catch(function(){});
+    // Promise 객체 생성 + then() 메서드 호출 + catch() 메서드 호출
+    new Promise(function(resolve, reject){
+      $.ajax({
+        type: 'get',
+        url: 'product1.xml',
+        async: true,
+        dataType: 'xml',
+        success: function(resData){
+          resolve($(resData).find('product').length); // resolve(3)
+        },
+        error: function(jqXHR){
+          reject(jqXHR.status); // reject(404)
+        } 
+      })
+
+    }).then(function(length){
+      console.log(length);
+    }).catch(function(status){
+      console.log(status);
+    })
+  </script>
+
+  <div>
+    <button id="btn"> 이미지열기</button>
+    <div id="img"></div>
+  </div>
+  <script>
+    $('#btn').click(function(){
+      var no = parseInt(Math.random() * 10 + 1); // 1 ~ 10 사이의 랜덤 값 생성
+      openImage('../../assets/images/animal' + no + '.jpg');
+    })
+    function openImage(imageURL){
+      new Promise(function(resolve, reject){
+        // ajax을 이용해서 이미지를 blob(binary Type, 이진타입)
+        $.ajax({
+          type: 'get',
+          url:imageURL,
+          async: true,
+          xhrFields: {
+            responseType: 'blob'
+          },
+          success: function(resData){ //resData 에는 이미비의 이진데이터가 전달됨
+            resolve(resData);
+          },
+          error: function(jqXHR){
+            reject(jqXHR);
+          }
+        })
+      }).then(function(resData){  //resDAata 이미지 파일의 이진데이터가 들어있다. 
+        var img = new Image();  //<img> 태그를 만들어 주는 JavaScript 객체 
+        img.src = URL.createObjectURL(resData);
+        $('#img').empty();
+        $('#img').append(img);
+      }).catch(function(jqXHR){
+        alert(jqXHR.status + '(' + jqXHR.statusText + ')');
+
+      })
+    }
+
+  </script>
+ 
+
+
+</body>
+</html>
