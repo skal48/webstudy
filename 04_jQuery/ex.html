@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <style>
+    .good {
+      color: teal;
+    }
+    .warning {
+      color: crimson;
+    }
+  </style>
+</head>
+<body>
+
+  <div>
+    <form id="frm_login" method="post" action="/">
+      <div>
+        <input type="text" id="id" placeholder="ID">
+        <div id="msg_id"></div>
+      </div>
+      <div>
+        <input type="password" id="pw" placeholder="password">
+        <div id="msg_pw"></div>
+      </div>
+      <div>
+        <button type="submit">로그인</button>
+      </div>
+    </form>
+  </div>
+  <script>
+    $('#id').keyup(function(){   //blur 포커스를 잃을 때 나타나는 이벤트 focuse  포커스를 가져다 대면 keyup 키보드를 한번씩 누르면 그때그때 반응 
+      // if(this.value.length < 4){
+      //   $('#msg_id').text('아이디는 4글자 이상입니다. ').addClass('warning');
+      // } else {
+      //   $('#msg_id').text('').removeClass('warning');
+      // }
+      // console.log(this.value);
+     // console.log($(this).val());
+        var regId = /^[A-za-z][A-za-z0-9-_]{4,19}$/;  //5~10 자리 수
+        if(regId.test(this.value)){
+          $('#msg_id').text('good').addClass('good').removeClass('warning'); //removeClass는 워닝을 지워라 
+        }else {
+          $('#msg_id').text('아이디는 5~20자...').addClass('warning').removeClass('good'); // 
+        }
+    })
+
+    $('#pw').keyup(function(){
+      if(this.value.length === 0){
+        $('#msg_pw').text('비밀번호를 입력하세요.').addClass('waring');
+      }else {
+        $('#msg_pw').text('').removeClass('waring');
+      }
+    })
+
+    $('#frm_login').submit(function(event){
+      if($('#msg_id').hasClass('good')){
+        alert('아이디를 확인하세요');
+        event.preventDefault();
+        return;
+      }
+    })
+
+
+
+
+  </script>
+
+</body>
+</html>
