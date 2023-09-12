@@ -184,8 +184,8 @@
       if(isNaN(a) || isNaN(b) || isNaN(c)){ //a, b, c 중 하나라도 숫자가 아니면(Not a number)
         return;
       }
-      let max = a;
-      if(b > max) max = b;
+      let max = a;  
+      if(b > max) max = b;  //if문이 한 줄인 경우에는 {} 생략 가능하다. 
       if(c > max) max = c;
       return max;
     }
